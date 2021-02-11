@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Button, Table, Input } from 'antd'
+import { Button, Table, Input, message } from 'antd'
+import { commodityList } from './service'
 
 const { Search } = Input
 
@@ -30,10 +31,22 @@ const productData = [
     }
 ]
 
-class ProductList extends Component {
+class Commodity extends Component {
 
     productSearch () {
         console.log('商品搜索')
+    }
+
+    getCommodityList = async () => {
+        try {
+            await commodityList ()
+        } catch (error) {
+            message.error('获取列表失败')
+        }
+    }
+
+    componentDidMount () {
+        this.getCommodityList()
     }
 
     render () {
@@ -53,4 +66,4 @@ class ProductList extends Component {
     }
 }
 
-export default ProductList
+export default Commodity

@@ -58,8 +58,8 @@ export default [
               {
                 name: 'Product.product-list',
                 icon: 'table',
-                path: '/ProductList',
-                component: './ProductList'
+                path: '/Commodity',
+                component: './Commodity'
               },
               {
                 component: './404',
