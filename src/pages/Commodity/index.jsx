@@ -1,27 +1,9 @@
 import React, { Component } from 'react'
 import { Button, Table, Input, message } from 'antd'
 import { commodityList } from './service'
+import DetailModal from './components/DetailModal'
 
 const { Search } = Input
-
-const productColumns = [
-    {
-      title: '商品名称',
-      dataIndex: 'productName',
-      key: 'productName'
-    },
-    {
-      title: '价格',
-      dataIndex: 'productPrice',
-      key: 'productPrice',
-    },
-    {
-      title: ' ',
-      dataIndex: 'edit',
-      key: 'edit',
-      render: () => <Button>编辑</Button>,
-    }
-]
 
 const productData = [
     {
@@ -33,8 +15,26 @@ const productData = [
 
 class Commodity extends Component {
 
+    constructor (props) {
+        super(props)
+        this.state = {
+            modalVisible: false
+        }
+    }
+
+    showModal = () => {
+        this.setState(
+            { modalVisible: true }
+        )
+    }
+
+    closeModal = () => {
+        this.setState(
+            { modalVisible: false }
+        )
+    }
+
     productSearch () {
-        console.log('商品搜索')
     }
 
     getCommodityList = async () => {
@@ -50,6 +50,24 @@ class Commodity extends Component {
     }
 
     render () {
+        const productColumns = [
+            {
+            title: '商品名称',
+            dataIndex: 'productName',
+            key: 'productName'
+            },
+            {
+            title: '价格',
+            dataIndex: 'productPrice',
+            key: 'productPrice',
+            },
+            {
+            title: ' ',
+            dataIndex: 'edit',
+            key: 'edit',
+            render: () => <Button onClick={this.showModal}>编辑</Button>,
+            }
+        ]
         return (
             <div>
                 <Search
@@ -61,6 +79,7 @@ class Commodity extends Component {
                     onSearch={this.productSearch}
                 />
                 <Table columns={productColumns} dataSource={productData}></Table>
+                <DetailModal visible={this.state.modalVisible} onOk={this.showModal} onClose={this.closeModal}></DetailModal>
             </div>
         )
     }
