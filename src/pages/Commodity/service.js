@@ -1,7 +1,7 @@
-import request from '@/utils/request'
+import request from '@/utils/request';
 
-export async function commodityList (params) {
-    return request('/api/commodity/list', {
-      params,
-    });
-  }
+export async function goodList(params) {
+  return request('/api/good/list', {
+    params,
+  });
+}

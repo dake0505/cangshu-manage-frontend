@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
-import { Modal, Form, Input, Select } from 'antd';
+import { Modal, Form, Input, DatePicker, Select } from 'antd';
 
 const { Option } = Select;
 
 class DetailModal extends Component {
   render() {
-    const { visible, onClose, commodityInfo } = this.props;
-    console.log(commodityInfo);
+    const { visible, onClose, detail } = this.props;
+    console.log(detail);
     const layout = {
       labelCol: {
-        span: 8,
+        span: 4,
       },
       wrapperCol: {
-        span: 16,
+        span: 20,
       },
     };
     const onFinish = (values) => {
@@ -35,8 +35,8 @@ class DetailModal extends Component {
             onFinishFailed={onFinishFailed}
           >
             <Form.Item
-              label="商品名称"
-              name="goodName"
+              label="日期"
+              name="date"
               rules={[
                 {
                   required: true,
@@ -44,11 +44,11 @@ class DetailModal extends Component {
                 },
               ]}
             >
-              <Input value={commodityInfo.goodName} />
+              <DatePicker />
             </Form.Item>
             <Form.Item
-              label="商品价格"
-              name="goodPrice"
+              label="类别"
+              name="type"
               rules={[
                 {
                   required: true,
@@ -56,50 +56,31 @@ class DetailModal extends Component {
                 },
               ]}
             >
-              <Input />
-            </Form.Item>
-            <Form.Item
-              label="商品类别"
-              name="goodType"
-              rules={[
-                {
-                  required: true,
-                  message: 'Please input your username!',
-                },
-              ]}
-            >
-              <Input />
-            </Form.Item>
-            <Form.Item
-              label="库存数量"
-              name="repertoryCount"
-              rules={[
-                {
-                  required: true,
-                  message: 'Please input your username!',
-                },
-              ]}
-            >
-              <Input />
-            </Form.Item>
-            <Form.Item
-              label="是否折扣"
-              name="discount"
-              rules={[
-                {
-                  required: true,
-                  message: 'Please input your username!',
-                },
-              ]}
-            >
-              <Select initialvalues="false" style={{ width: 120 }}>
-                <Option value="true">是</Option>
-                <Option value="false">否</Option>
+              <Select style={{ width: 120 }}>
+                <Option value="jack">Jack</Option>
+                <Option value="lucy">Lucy</Option>
+                <Option value="Yiminghe">yiminghe</Option>
               </Select>
             </Form.Item>
             <Form.Item
-              label="折扣率"
-              name="discountRate"
+              label="名称"
+              name="name"
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input your username!',
+                },
+              ]}
+            >
+              <Select style={{ width: 120 }}>
+                <Option value="jack">Jack</Option>
+                <Option value="lucy">Lucy</Option>
+                <Option value="Yiminghe">yiminghe</Option>
+              </Select>
+            </Form.Item>
+            <Form.Item
+              label="明细"
+              name="detail"
               rules={[
                 {
                   required: true,
@@ -108,6 +89,22 @@ class DetailModal extends Component {
               ]}
             >
               <Input />
+            </Form.Item>
+            <Form.Item
+              label="用户"
+              name="user"
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input your username!',
+                },
+              ]}
+            >
+              <Select style={{ width: 120 }}>
+                <Option value="jack">Jack</Option>
+                <Option value="lucy">Lucy</Option>
+                <Option value="Yiminghe">yiminghe</Option>
+              </Select>
             </Form.Item>
           </Form>
         </Modal>

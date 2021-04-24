@@ -59,7 +59,13 @@ export default [
                 name: 'Product.product-list',
                 icon: 'table',
                 path: '/Commodity',
-                component: './Commodity'
+                component: './Commodity',
+              },
+              {
+                name: 'Expenditure.detail',
+                icon: 'table',
+                path: '/Expenditure',
+                component: './Expenditure',
               },
               {
                 component: './404',
