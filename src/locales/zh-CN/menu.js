@@ -51,4 +51,5 @@ export default {
   'menu.editor.koni': '拓扑编辑器',
   'menu.Product.product-list': '商品列表',
   'menu.Expenditure.detail': '账单详情',
+  'menu.UserManage.list': '用户列表',
 };

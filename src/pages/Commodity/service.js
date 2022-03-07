@@ -5,3 +5,9 @@ export async function goodList(params) {
     params,
   });
 }
+export async function updateGoodInfo(data) {
+  return request('/api/good/updateGoodInfo', {
+    method: 'post',
+    data,
+  });
+}

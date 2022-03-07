@@ -68,6 +68,12 @@ export default [
                 component: './Expenditure',
               },
               {
+                name: 'UserManage.list',
+                icon: 'table',
+                path: '/UserManage',
+                component: './UserManage',
+              },
+              {
                 component: './404',
               },
             ],

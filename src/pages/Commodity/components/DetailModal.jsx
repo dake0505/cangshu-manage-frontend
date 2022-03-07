@@ -5,8 +5,8 @@ const { Option } = Select;
 
 class DetailModal extends Component {
   render() {
-    const { visible, onClose, commodityInfo } = this.props;
-    console.log(commodityInfo);
+    const { visible, onClose, goodInfo } = this.props;
+    console.log(goodInfo);
     const layout = {
       labelCol: {
         span: 8,
@@ -44,7 +44,7 @@ class DetailModal extends Component {
                 },
               ]}
             >
-              <Input value={commodityInfo.goodName} />
+              <Input value={goodInfo.goodName} />
             </Form.Item>
             <Form.Item
               label="商品价格"

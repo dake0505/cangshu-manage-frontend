@@ -16,8 +16,9 @@ class Commodity extends Component {
         regex: '',
         discount: null,
       },
-      commodityInfo: {},
-      goodData: [],
+      goodInfo: {},
+      goodList: [],
+      goodCount: null,
     };
   }
 
@@ -33,6 +34,22 @@ class Commodity extends Component {
     this.showModal();
   };
 
+  editGoodInfo = (info) => {
+    this.setState({
+      goodInfo: info,
+    });
+    this.showModal();
+  };
+
+  pageChange = (page) => {
+    const params = this.state.filterParams;
+    params.page = page;
+    this.setState({
+      filterParams: params,
+    });
+    this.getgoodList();
+  };
+
   productSearch() {}
 
   getgoodList = async () => {
@@ -42,7 +59,8 @@ class Commodity extends Component {
         size: 10,
       });
       this.setState({
-        goodData: res.list,
+        goodList: res.data.list,
+        goodCount: res.data.count,
       });
     } catch (error) {
       message.error('获取列表失败');
@@ -89,7 +107,7 @@ class Commodity extends Component {
         title: ' ',
         dataIndex: 'edit',
         key: 'edit',
-        render: () => <Button onClick={this.showModal}>编辑</Button>,
+        render: (_, info) => <Button onClick={() => this.editGoodInfo(info)}>编辑</Button>,
       },
     ];
     return (
@@ -106,15 +124,15 @@ class Commodity extends Component {
         />
         <Table
           columns={productColumns}
-          dataSource={this.state.goodData}
+          dataSource={this.state.goodList}
           pagination={{
             current: this.state.filterParams.page,
-            total: 100,
-            onChange: this.getgoodList,
+            total: this.state.goodCount,
+            onChange: this.pageChange,
           }}
         ></Table>
         <DetailModal
-          commodityInfo={this.state.commodityInfo}
+          goodInfo={this.state.goodInfo}
           visible={this.state.modalVisible}
           onOk={this.showModal}
           onClose={this.closeModal}
