@@ -26,6 +26,10 @@ class Manage extends Component {
     })
   }
 
+  onSubmitForm (values) {
+    console.log(values)
+  }
+
   render () {
     const column = [
       { dataIndex: 'userName', title: '账号' },
@@ -46,6 +50,7 @@ class Manage extends Component {
             wrapperCol={{ span: 18 }}
             initialValues={{ remember: true }}
             autoComplete="off"
+            onFinish={(value) => this.onSubmitForm(value)}
           >
             <Form.Item
               label="账号"
@@ -54,6 +59,9 @@ class Manage extends Component {
             >
               <Input />
             </Form.Item>
+            <Button type="primary" htmlType="submit">
+              Submit
+            </Button>
           </Form>
         </Modal>
       </div>
