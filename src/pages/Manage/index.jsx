@@ -1,48 +1,55 @@
-import React, { Component } from 'react'
-import { Table, Button, Modal, Form, Input } from 'antd'
+import React, { Component } from 'react';
+import { Table, Button, Modal, Form, Input } from 'antd';
 
 class Manage extends Component {
-  formRef = React.createRef()
-  constructor () {
-    super()
+  formRef = React.createRef();
+  constructor() {
+    super();
     this.state = {
       name: 1,
-      userList: [
-        { userName: 'a', createTime: '2020-02-01' }
-      ],
-      modalVisible: false
-    }
+      userList: [{ userName: 'a', createTime: '2020-02-01' }],
+      modalVisible: false,
+    };
   }
 
-  onClickCreate () {
+  onClickCreate() {
     this.setState({
-      modalVisible: true
-    })
+      modalVisible: true,
+    });
   }
 
-  onClickOk () {
+  onClickOk() {
     this.setState({
-      modalVisible: false
-    })
+      modalVisible: false,
+    });
   }
 
-  onSubmitForm (values) {
-    console.log(values)
+  onSubmitForm(values) {
+    console.log(values);
   }
 
-  render () {
+  render() {
     const column = [
       { dataIndex: 'userName', title: '账号' },
       { dataIndex: 'createTime', title: '创建时间' },
-      { dataIndex: 'updateTime', title: '更新时间' }
-    ]
+      { dataIndex: 'updateTime', title: '更新时间' },
+    ];
     return (
       <div>
         <Button onClick={() => this.onClickCreate()}>新增用户</Button>
         {this.state.name}
         Manage
-        <Table rowKey={(record) => record.userName} columns={column} dataSource={this.state.userList} />
-        <Modal title="用户详情" visible={this.state.modalVisible} onOk={() => this.onClickOk()}>
+        <Table
+          rowKey={(record) => record.userName}
+          columns={column}
+          dataSource={this.state.userList}
+        />
+        <Modal
+          title="用户详情"
+          visible={this.state.modalVisible}
+          onOk={() => this.onClickOk()}
+          onCancel={() => this.onClickOk()}
+        >
           <Form
             ref={this.formRef}
             name="用户详情"
@@ -65,8 +72,8 @@ class Manage extends Component {
           </Form>
         </Modal>
       </div>
-    )
+    );
   }
 }
 
-export default Manage
+export default Manage;
