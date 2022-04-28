@@ -23,15 +23,7 @@ const LoginMessage: React.FC<{
 const Login: React.FC = () => {
   const [userLoginState, setUserLoginState] = useState<API.LoginResult>({});
   const [type, setType] = useState<string>('account');
-  const { initialState, setInitialState } = useModel('@@initialState');
-
-  const fetchUserInfo = async () => {
-    const userInfo = await initialState?.fetchUserInfo?.();
-
-    if (userInfo) {
-      await setInitialState((s) => ({ ...s, currentUser: userInfo }));
-    }
-  };
+  const { setInitialState } = useModel('@@initialState');
 
   const handleSubmit = async (values: API.LoginParams) => {
     try {
@@ -42,7 +34,7 @@ const Login: React.FC = () => {
       if (msg.code === 200) {
         const defaultLoginSuccessMessage = '登录成功！';
         message.success(defaultLoginSuccessMessage);
-        await fetchUserInfo();
+        setInitialState({ currentUser: msg.data });
         /** 此方法会跳转到 redirect 参数所在的位置 */
 
         if (!history) return;
