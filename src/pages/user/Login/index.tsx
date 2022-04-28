@@ -36,12 +36,12 @@ const Login: React.FC = () => {
         message.success(defaultLoginSuccessMessage);
         setInitialState({ currentUser: msg.data });
         /** 此方法会跳转到 redirect 参数所在的位置 */
-
         if (!history) return;
         const { query } = history.location;
         const { redirect } = query as {
           redirect: string;
         };
+        console.log(redirect);
         history.push(redirect || '/');
         return;
       }
