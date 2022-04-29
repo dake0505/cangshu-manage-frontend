@@ -8,7 +8,7 @@ export type HeaderDropdownProps = {
   overlayClassName?: string;
   overlay: React.ReactNode | (() => React.ReactNode) | any;
   placement?: 'bottomLeft' | 'bottomRight' | 'topLeft' | 'topCenter' | 'topRight' | 'bottomCenter';
-} & Omit<DropDownProps, 'overlay'>;
+} & Omit<DropDownProps, 'overlay'>; // Omit ts辅助类型，作用是以一个类型为基础剔除某些属性
 
 const HeaderDropdown: React.FC<HeaderDropdownProps> = ({ overlayClassName: cls, ...restProps }) => (
   <Dropdown overlayClassName={classNames(styles.container, cls)} {...restProps} />

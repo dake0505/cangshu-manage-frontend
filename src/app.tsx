@@ -54,7 +54,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
   return {
     rightContentRender: () => <RightContent />,
     // 控制菜单展示
-    menuRender: false,
+    // menuRender: true,
     disableContentMargin: false,
     // 水印
     waterMarkProps: {
