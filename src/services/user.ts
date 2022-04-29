@@ -1,4 +1,4 @@
-import { request } from 'umi';
+import { request } from '@/utils/request';
 
 /** 登录接口 POST /api/login/account */
 export async function login(body: API.LoginParams, options?: Record<string, any>) {
