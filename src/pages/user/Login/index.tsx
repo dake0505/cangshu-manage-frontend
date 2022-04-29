@@ -2,7 +2,7 @@ import { LockOutlined, MobileOutlined, UserOutlined } from '@ant-design/icons';
 import { Alert, message, Tabs } from 'antd';
 import React, { useState } from 'react';
 import { ProFormCaptcha, ProFormCheckbox, ProFormText, LoginForm } from '@ant-design/pro-form';
-import { history, useModel } from 'umi';
+import { history, useModel, connect, useSelector } from 'umi';
 import { login } from '@/services/user';
 import { getFakeCaptcha } from '@/services/ant-design-pro/login';
 import styles from './index.less';
@@ -23,7 +23,9 @@ const LoginMessage: React.FC<{
 const Login: React.FC = () => {
   const [userLoginState, setUserLoginState] = useState<API.LoginResult>({});
   const [type, setType] = useState<string>('account');
+  const user = useSelector((state: any) => state.user);
   const { setInitialState } = useModel('@@initialState');
+  console.log(user);
 
   const handleSubmit = async (values: API.LoginParams) => {
     try {
@@ -188,4 +190,11 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
+const mapStateToProps = ({ user }: any) => {
+  console.log(user);
+  return {
+    ...user,
+  };
+};
+
+export default connect(mapStateToProps)(Login);
