@@ -4,7 +4,7 @@ import { PageLoading } from '@ant-design/pro-layout';
 import type { RunTimeLayoutConfig } from 'umi';
 import { history } from 'umi';
 import RightContent from '@/components/RightContent';
-import Footer from '@/components/Footer';
+// import Footer from '@/components/Footer';
 import { currentUser as queryCurrentUser } from './services/ant-design-pro/api';
 import defaultSettings from '../config/defaultSettings';
 
@@ -57,10 +57,10 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
     // menuRender: true,
     disableContentMargin: false,
     // 水印
-    waterMarkProps: {
-      content: initialState?.currentUser?.username,
-    },
-    footerRender: () => <Footer />,
+    // waterMarkProps: {
+    //   content: initialState?.currentUser?.username,
+    // },
+    // footerRender: () => <Footer />,
     onPageChange: () => {
       const { location } = history;
       // 如果没有登录，重定向到 login
@@ -77,13 +77,14 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
       return (
         <>
           {children}
+          {/* 侧边配置工具 */}
           {!props.location?.pathname?.includes('/login') && (
             <SettingDrawer
               disableUrlParams
               enableDarkTheme
               settings={defaultSettings}
               onSettingChange={(settings) => {
-                setInitialState((preInitialState) => ({
+                setInitialState((preInitialState: any) => ({
                   ...preInitialState,
                   settings,
                 }));
