@@ -8,6 +8,9 @@ export interface CurrentUser {
   title?: string;
   group?: string;
   signature?: string;
+  token?: string;
+  score?: string;
+  email?: string;
   tags?: {
     key: string;
     label: string;
@@ -59,6 +62,7 @@ const UserModel: UserModelType = {
 
   reducers: {
     saveCurrentUser(state, action) {
+      console.log(state, action);
       return {
         ...state,
         currentUser: action.payload || {},

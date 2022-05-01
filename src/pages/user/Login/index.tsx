@@ -2,7 +2,7 @@ import { LockOutlined, MobileOutlined, UserOutlined } from '@ant-design/icons';
 import { Alert, message, Tabs } from 'antd';
 import React, { useState } from 'react';
 import { ProFormCaptcha, ProFormCheckbox, ProFormText, LoginForm } from '@ant-design/pro-form';
-import { history, useModel, connect, useSelector } from 'umi';
+import { history, useModel, connect, useSelector, useDispatch } from 'umi';
 import { login } from '@/services/user';
 import { getFakeCaptcha } from '@/services/ant-design-pro/login';
 import styles from './index.less';
@@ -25,7 +25,7 @@ const Login: React.FC = () => {
   const [type, setType] = useState<string>('account');
   const user = useSelector((state: any) => state.user);
   const { setInitialState } = useModel('@@initialState');
-  console.log(user);
+  const dispatch = useDispatch();
 
   const handleSubmit = async (values: API.LoginParams) => {
     try {
@@ -37,6 +37,11 @@ const Login: React.FC = () => {
         const defaultLoginSuccessMessage = '登录成功！';
         message.success(defaultLoginSuccessMessage);
         setInitialState({ currentUser: msg.data });
+        dispatch({
+          type: 'user/saveCurrentUser',
+          payload: msg.data,
+        });
+        console.log(user);
         /** 此方法会跳转到 redirect 参数所在的位置 */
         if (!history) return;
         const { query } = history.location;
@@ -52,6 +57,7 @@ const Login: React.FC = () => {
 
       setUserLoginState(msg);
     } catch (error) {
+      console.log(error);
       const defaultLoginFailureMessage = '登录失败，请重试！';
       message.error(defaultLoginFailureMessage);
     }
@@ -191,7 +197,6 @@ const Login: React.FC = () => {
 };
 
 const mapStateToProps = ({ user }: any) => {
-  console.log(user);
   return {
     ...user,
   };

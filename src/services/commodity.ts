@@ -5,7 +5,7 @@ export async function getCommodityList(
   params: CommodityApi.queryParams,
   options?: Record<string, any>,
 ) {
-  return request('/api/user/login', {
+  return request('/api/warehouse/commodity-list', {
     method: 'GET',
     params: { ...params },
     ...(options || {}),
