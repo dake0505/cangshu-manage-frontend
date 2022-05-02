@@ -2,7 +2,7 @@ import { LockOutlined, MobileOutlined, UserOutlined } from '@ant-design/icons';
 import { Alert, message, Tabs } from 'antd';
 import React, { useState } from 'react';
 import { ProFormCaptcha, ProFormCheckbox, ProFormText, LoginForm } from '@ant-design/pro-form';
-import { history, useModel, connect, useSelector, useDispatch } from 'umi';
+import { history, useModel, connect, useDispatch } from 'umi';
 import { login } from '@/services/user';
 import { getFakeCaptcha } from '@/services/ant-design-pro/login';
 import styles from './index.less';
@@ -23,16 +23,13 @@ const LoginMessage: React.FC<{
 const Login: React.FC = () => {
   const [userLoginState, setUserLoginState] = useState<API.LoginResult>({});
   const [type, setType] = useState<string>('account');
-  const user = useSelector((state: any) => state.user);
+  // const user = useSelector((state: any) => state.user);
   const { setInitialState } = useModel('@@initialState');
   const dispatch = useDispatch();
 
   const handleSubmit = async (values: API.LoginParams) => {
     try {
-      // 登录
       const msg = await login({ ...values, type });
-      console.log(msg);
-
       if (msg.code === 200) {
         const defaultLoginSuccessMessage = '登录成功！';
         message.success(defaultLoginSuccessMessage);
@@ -41,14 +38,12 @@ const Login: React.FC = () => {
           type: 'user/saveCurrentUser',
           payload: msg.data,
         });
-        console.log(user);
         /** 此方法会跳转到 redirect 参数所在的位置 */
         if (!history) return;
         const { query } = history.location;
         const { redirect } = query as {
           redirect: string;
         };
-        console.log(redirect);
         history.push(redirect || '/');
         return;
       }
