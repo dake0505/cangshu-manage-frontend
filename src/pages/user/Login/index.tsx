@@ -1,4 +1,4 @@
-import { LockOutlined, MobileOutlined, UserOutlined } from '@ant-design/icons';
+// import { LockOutlined, MobileOutlined, UserOutlined } from '@ant-design/icons';
 import { Alert, message, Tabs } from 'antd';
 import React, { useState } from 'react';
 import { ProFormCaptcha, ProFormCheckbox, ProFormText, LoginForm } from '@ant-design/pro-form';
@@ -85,7 +85,7 @@ const Login: React.FC = () => {
                 name="email"
                 fieldProps={{
                   size: 'large',
-                  prefix: <UserOutlined className={styles.prefixIcon} />,
+                  // prefix: <UserOutlined className={styles.prefixIcon} />,
                 }}
                 placeholder={'用户名: admin or user'}
                 rules={[
@@ -99,7 +99,7 @@ const Login: React.FC = () => {
                 name="password"
                 fieldProps={{
                   size: 'large',
-                  prefix: <LockOutlined className={styles.prefixIcon} />,
+                  // prefix: <LockOutlined className={styles.prefixIcon} />,
                 }}
                 placeholder={'密码: ant.design'}
                 rules={[
@@ -118,7 +118,7 @@ const Login: React.FC = () => {
               <ProFormText
                 fieldProps={{
                   size: 'large',
-                  prefix: <MobileOutlined className={styles.prefixIcon} />,
+                  // prefix: <MobileOutlined className={styles.prefixIcon} />,
                 }}
                 name="mobile"
                 placeholder={'请输入手机号！'}
@@ -136,7 +136,7 @@ const Login: React.FC = () => {
               <ProFormCaptcha
                 fieldProps={{
                   size: 'large',
-                  prefix: <LockOutlined className={styles.prefixIcon} />,
+                  // prefix: <LockOutlined className={styles.prefixIcon} />,
                 }}
                 captchaProps={{
                   size: 'large',

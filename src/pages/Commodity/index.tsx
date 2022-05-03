@@ -1,15 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
-import ProTable from '@ant-design/pro-table';
-import type { ProColumns } from '@ant-design/pro-table';
+import { Table, Tag, Modal, Button } from 'antd';
 import { getCommodityList } from '@/services/commodity';
 
 const CommodityPage: React.FC = () => {
-  const columns: ProColumns<API.RuleListItem>[] = [
-    {
-      title: 'ID',
-      dataIndex: '_id',
-    },
+  const columns = [
     {
       title: '商品名称',
       dataIndex: 'commodityDisplayName',
@@ -18,27 +13,58 @@ const CommodityPage: React.FC = () => {
       title: '商品价格',
       dataIndex: 'commodityPrice',
     },
+    {
+      title: '库存',
+      dataIndex: 'commodityCount',
+    },
+    {
+      title: '交易数量',
+      dataIndex: 'commoditySale',
+    },
+    {
+      title: '是否有效',
+      dataIndex: 'isValid',
+      render: (text: any) => (
+        <div>
+          <Tag color={text ? 'green' : 'volcano'}>{text ? '是' : '否'}</Tag>
+        </div>
+      ),
+    },
   ];
+  const [dataSource, setDataSource] = useState([]);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
 
-  const [params] = useState({ pageSize: 10, current: 1 });
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
+  useEffect(() => {
+    getCommodityList({
+      pageNumber: 1,
+      pageSize: 10,
+    }).then((res) => {
+      setDataSource(res.data.list);
+    });
+  }, []);
 
   return (
     <PageContainer>
-      <ProTable<API.RuleListItem, API.PageParams>
-        columns={columns}
-        params={params}
-        rowKey="_id"
-        request={async () => {
-          const msg = await getCommodityList({
-            pageSize: params.pageSize,
-            pageNumber: params.current,
-          });
-          return {
-            data: msg.data.list,
-            total: msg.data.count,
-          };
-        }}
-      />
+      <Button type="primary" onClick={showModal}>
+        新增商品
+      </Button>
+      <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+      </Modal>
+      <Table rowKey="_id" columns={columns} dataSource={dataSource} />
     </PageContainer>
   );
 };

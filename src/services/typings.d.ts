@@ -5,4 +5,9 @@ declare namespace CommodityApi {
     pageNumber: number;
     pageSize: number;
   };
+  type ListItem = {
+    key?: number;
+    title?: string;
+    dataIndex?: string;
+  };
 }
