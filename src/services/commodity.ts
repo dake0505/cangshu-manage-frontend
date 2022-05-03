@@ -11,3 +11,14 @@ export async function getCommodityList(
     ...(options || {}),
   });
 }
+
+export async function postCommodity(
+  data: CommodityApi.createParams,
+  options?: Record<string, any>,
+) {
+  return request('/api/warehouse/commodity', {
+    method: 'POST',
+    data,
+    ...(options || {}),
+  });
+}

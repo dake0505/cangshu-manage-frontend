@@ -10,4 +10,8 @@ declare namespace CommodityApi {
     title?: string;
     dataIndex?: string;
   };
+  type createParams = {
+    commodityName: string;
+    commodityDesc: string;
+  };
 }
