@@ -1,6 +1,5 @@
 import errorHandler from '@/utils/errorHandle';
 import { extend } from 'umi-request';
-import { getDvaApp } from 'umi';
 import type { RequestOptionsInit } from 'umi-request';
 
 // 请求拦截
@@ -28,11 +27,10 @@ const request = extend({
 });
 
 request.interceptors.request.use((url, options) => {
-  // const auth = getDvaApp()._models[0].state.currentUser.token;
-  console.log(getDvaApp()._models);
-  const auth = '1';
+  // console.log(getDvaApp()._models);
+  const auth = localStorage.getItem('token');
   const headers = {
-    Authorization: auth,
+    Authorization: 'Bearer ' + auth,
   };
   return {
     url,

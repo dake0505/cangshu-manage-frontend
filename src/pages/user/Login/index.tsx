@@ -38,6 +38,7 @@ const Login: React.FC = () => {
           type: 'user/saveCurrentUser',
           payload: msg.data,
         });
+        localStorage.setItem('token', msg.data.token);
         /** 此方法会跳转到 redirect 参数所在的位置 */
         if (!history) return;
         const { query } = history.location;
