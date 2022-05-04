@@ -7,8 +7,9 @@ export default [
       { component: './404' },
     ],
   },
-  { path: '/welcome', name: '首页', icon: 'smile', component: './Welcome' },
-  { path: '/commodity', name: '仓库', icon: 'smile', component: './Commodity' },
+  { path: '/welcome', name: '首页', icon: 'shop', component: './Shop' },
+  { path: '/commodity', name: '仓库', icon: 'home', component: './Commodity' },
+  { path: '/order', name: '订单', icon: 'unordered-list', component: './Order' },
   {
     path: '/account',
     routes: [{ name: '个人中心', path: '/account/center', component: './user/Center' }],
@@ -24,7 +25,7 @@ export default [
       { component: './404' },
     ],
   },
-  { name: '查询表格', icon: 'table', path: '/list', component: './TableList' },
+  // { name: '查询表格', icon: 'table', path: '/list', component: './TableList' },
   { path: '/', redirect: '/welcome' },
   { component: './404' },
 ];

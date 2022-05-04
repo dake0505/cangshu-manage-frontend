@@ -109,7 +109,7 @@ const CommodityPage: React.FC = () => {
           </Form.Item>
         </Form>
       </Modal>
-      <Table rowKey="_id" columns={columns} dataSource={dataSource} />
+      <Table rowKey="_id" size="small" columns={columns} dataSource={dataSource} />
     </PageContainer>
   );
 };
