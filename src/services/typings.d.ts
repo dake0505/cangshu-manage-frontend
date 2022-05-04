@@ -14,6 +14,16 @@ declare namespace CommodityApi {
     commodityName: string;
     commodityDesc: string;
   };
+  type CommodityItem = {
+    _id?: string;
+    commodityName?: string;
+    commodityDisplayName?: string;
+    commodityDesc?: string;
+    commodityPrice?: number;
+    commodityCount?: number;
+    commoditySale?: number;
+    isValid?: boolean;
+  };
 }
 
 declare namespace UserApi {
