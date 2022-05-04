@@ -7,8 +7,12 @@ export default [
       { component: './404' },
     ],
   },
-  { path: '/welcome', name: '欢迎', icon: 'smile', component: './Welcome' },
+  { path: '/welcome', name: '首页', icon: 'smile', component: './Welcome' },
   { path: '/commodity', name: '仓库', icon: 'smile', component: './Commodity' },
+  {
+    path: '/account',
+    routes: [{ name: '个人中心', path: '/account/center', component: './user/Center' }],
+  },
   {
     path: '/admin',
     name: '管理页',

@@ -5,7 +5,7 @@ import type { RunTimeLayoutConfig } from 'umi';
 import { history } from 'umi';
 import RightContent from '@/components/RightContent';
 // import Footer from '@/components/Footer';
-import { currentUser as queryCurrentUser } from './services/ant-design-pro/api';
+import { queryUserInfo as queryCurrentUser } from '@/services/user';
 import defaultSettings from '../config/defaultSettings';
 
 const loginPath = '/user/login';

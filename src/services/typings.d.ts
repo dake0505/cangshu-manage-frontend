@@ -15,3 +15,7 @@ declare namespace CommodityApi {
     commodityDesc: string;
   };
 }
+
+declare namespace UserApi {
+  type signInParams = {};
+}

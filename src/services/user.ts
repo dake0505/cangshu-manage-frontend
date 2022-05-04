@@ -1,6 +1,11 @@
 import { request } from '@/utils/request';
 
-/** 登录接口 POST /api/login/account */
+/**
+ * 登录
+ * @param body
+ * @param options
+ * @returns
+ */
 export async function login(body: API.LoginParams, options?: Record<string, any>) {
   return request('/api/user/login', {
     method: 'POST',
@@ -9,5 +14,36 @@ export async function login(body: API.LoginParams, options?: Record<string, any>
     },
     data: body,
     ...(options || {}),
+  });
+}
+/**
+ * 查询用户信息
+ * @returns
+ */
+export async function queryUserInfo() {
+  return request('/api/user/info', {
+    method: 'get',
+  });
+}
+/**
+ * 用户签到
+ * @param params 不需参数
+ * @returns
+ */
+export async function signIn(params?: UserApi.signInParams) {
+  return request('/api/user/sign-in', {
+    method: 'GET',
+    params,
+  });
+}
+/**
+ * 获取签到列表
+ * @param params
+ * @returns
+ */
+export async function querySignInList(params?: UserApi.signInParams) {
+  return request('/api/user/sign-in-list', {
+    method: 'GET',
+    params,
   });
 }
