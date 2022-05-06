@@ -29,6 +29,7 @@ const Shop: React.FC = () => {
   const onPageChange = (page: number) => {
     setQueryParams({ pageNumber: page, pageSize: 10 });
   };
+  const onAddShopCar = () => {};
   useEffect(() => {
     onQueryList();
   }, [queryParams]);
@@ -97,7 +98,7 @@ const Shop: React.FC = () => {
             </div>
             <div>
               <InputNumber />
-              <Button style={{ marginLeft: '10px' }}>
+              <Button style={{ marginLeft: '10px' }} onClick={onAddShopCar}>
                 <ShoppingCartOutlined /> 加入购物车
               </Button>
             </div>
