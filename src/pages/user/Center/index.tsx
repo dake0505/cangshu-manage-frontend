@@ -46,6 +46,9 @@ const AccountCenter: React.FC = () => {
         <TabPane tab="个人信息" key="2">
           个人信息
         </TabPane>
+        <TabPane tab="地址管理" key="3">
+          地址列表
+        </TabPane>
       </Tabs>
     </PageContainer>
   );
