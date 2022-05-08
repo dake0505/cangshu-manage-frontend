@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { useSelector } from 'umi';
 import { Tabs, Button, Table, Statistic } from 'antd';
-import { querySignInList, signIn } from '@/services/user';
+import { signIn } from '@/services/user';
 
 const { TabPane } = Tabs;
 
 const AccountCenter: React.FC = () => {
   const user = useSelector((state: any) => state.user);
-  const [signInList, setSignInList] = useState([]);
+  const [signInList] = useState([]);
   const [hasSignIn, setHasSignIn] = useState('false');
-  const getSignInList = async () => {
-    const res = await querySignInList();
-    setSignInList(res.data);
-  };
+  // const getSignInList = async () => {
+  //   const res = await querySignInList();
+  //   setSignInList(res.data);
+  // };
   const handleSignIn = async () => {
     const res = await signIn();
     if (res) {
@@ -22,10 +22,10 @@ const AccountCenter: React.FC = () => {
       setHasSignIn('true');
     }
   };
-  useEffect(() => {
-    getSignInList();
-    setHasSignIn(localStorage.getItem('sign-in') || 'false');
-  }, []);
+  // useEffect(() => {
+  //   getSignInList();
+  //   setHasSignIn(localStorage.getItem('sign-in') || 'false');
+  // }, []);
   const signInColumns = [
     { title: '签到日期', dataIndex: 'createdAt' },
     { title: '获得积分', dataIndex: 'current', render: (text: any) => <span>{text * 5}</span> },
