@@ -2,7 +2,7 @@ import type { Settings as LayoutSettings } from '@ant-design/pro-layout';
 import { SettingDrawer } from '@ant-design/pro-layout';
 import { PageLoading } from '@ant-design/pro-layout';
 import type { RunTimeLayoutConfig } from 'umi';
-import { history } from 'umi';
+import { history, getDvaApp } from 'umi';
 import RightContent from '@/components/RightContent';
 // import Footer from '@/components/Footer';
 import { queryUserInfo as queryCurrentUser } from '@/services/user';
@@ -14,6 +14,8 @@ const loginPath = '/user/login';
 export const initialStateConfig = {
   loading: <PageLoading />,
 };
+
+console.log(getDvaApp());
 
 /**
  * @see  https://umijs.org/zh-CN/plugins/plugin-initial-state
@@ -28,8 +30,13 @@ export async function getInitialState(): Promise<{
   const fetchUserInfo = async () => {
     try {
       const msg = await queryCurrentUser();
+      // getDvaApp()._store.dispatch({
+      //   type: 'user/saveCurrentUser',
+      //   payload: msg.data,
+      // });
       return msg.data;
     } catch (error) {
+      console.log(error);
       history.push(loginPath);
     }
     return undefined;

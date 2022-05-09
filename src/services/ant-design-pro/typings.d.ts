@@ -22,6 +22,8 @@ declare namespace API {
     };
     address?: string;
     phone?: string;
+    lastSignIn?: Date;
+    score?: number;
   };
 
   type LoginResult = {
