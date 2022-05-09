@@ -1,9 +1,12 @@
 import type { Effect, Reducer } from 'umi';
 
-import { login, queryUserInfo } from '@/services/user';
+import { login } from '@/services/user';
 
 export interface Commodity {
   commodityName: string;
+  commodityCount: number;
+  commodityPrice: number;
+  commodityId: string;
 }
 
 export interface ShopcarModelState {
@@ -15,7 +18,6 @@ export interface ShopcarModelType {
   state: ShopcarModelState;
   effects: {
     fetch: Effect;
-    fetchCurrent: Effect;
   };
   reducers: {
     updateCommoditylist: Reducer<ShopcarModelState>;
@@ -38,21 +40,14 @@ const ShopcarModel: ShopcarModelType = {
         payload: response,
       });
     },
-    *fetchCurrent(_, { call, put }) {
-      const response = yield call(queryUserInfo);
-      yield put({
-        type: 'saveCurrentUser',
-        payload: response,
-      });
-    },
   },
 
   reducers: {
     updateCommoditylist(state, action) {
-      console.log(state, action);
+      // console.log(state, action);
       return {
         ...state,
-        currentUser: action.payload || {},
+        commodityList: action.payload || {},
       };
     },
   },
