@@ -4,6 +4,7 @@ import { useModel } from 'umi';
 import { Tabs, Button, Table, Statistic } from 'antd';
 import { signIn, querySignInList } from '@/services/user';
 import moment from 'moment';
+import Address from './address';
 
 const { TabPane } = Tabs;
 
@@ -20,6 +21,7 @@ const AccountCenter: React.FC = () => {
     if (res) {
       console.log(res);
       refresh();
+      getSignInList();
     }
   };
   const signInColumns = [
@@ -33,7 +35,6 @@ const AccountCenter: React.FC = () => {
   useEffect(() => {
     const currentMoment = moment(new Date());
     const lastMoment = moment(initialState?.currentUser?.lastSignIn);
-    console.log(currentMoment, lastMoment, initialState);
     if (currentMoment.isSame(lastMoment, 'date')) {
       setHasSignIn(true);
     } else {
@@ -59,7 +60,7 @@ const AccountCenter: React.FC = () => {
           个人信息
         </TabPane>
         <TabPane tab="地址管理" key="3">
-          地址列表
+          <Address />
         </TabPane>
       </Tabs>
     </PageContainer>

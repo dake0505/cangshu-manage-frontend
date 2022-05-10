@@ -20,16 +20,26 @@ declare namespace API {
       province?: { label?: string; key?: string };
       city?: { label?: string; key?: string };
     };
-    address?: string;
     phone?: string;
     lastSignIn?: Date;
     score?: number;
+    address?: {
+      tel?: number;
+      address?: string;
+      recipient?: string;
+    }[];
   };
 
   type LoginResult = {
     status?: string;
     type?: string;
     currentAuthority?: string;
+  };
+
+  type AddressItem = {
+    tel?: number;
+    address?: string;
+    recipient?: string;
   };
 
   type PageParams = {

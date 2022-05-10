@@ -77,7 +77,7 @@ const CommodityPage: React.FC = () => {
 
   return (
     <PageContainer>
-      <Button type="primary" onClick={showModal}>
+      <Button type="primary" style={{ marginBottom: 20 }} onClick={showModal}>
         新增商品
       </Button>
       <Modal title="商品详情" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>

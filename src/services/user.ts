@@ -25,6 +25,12 @@ export async function queryUserInfo() {
     method: 'get',
   });
 }
+export async function updateUserInfo(data: API.CurrentUser) {
+  return request('/api/user', {
+    method: 'PUT',
+    data,
+  });
+}
 /**
  * 用户签到
  * @param params 不需参数
