@@ -1,10 +1,9 @@
 // import { LockOutlined, MobileOutlined, UserOutlined } from '@ant-design/icons';
 import { Alert, message, Tabs } from 'antd';
 import React, { useState } from 'react';
-import { ProFormCaptcha, ProFormCheckbox, ProFormText, LoginForm } from '@ant-design/pro-form';
+import { ProFormText, LoginForm } from '@ant-design/pro-form';
 import { history, useModel, connect, useDispatch } from 'umi';
-import { login } from '@/services/user';
-import { getFakeCaptcha } from '@/services/ant-design-pro/login';
+import { login, register } from '@/services/user';
 import styles from './index.less';
 
 const LoginMessage: React.FC<{
@@ -59,6 +58,16 @@ const Login: React.FC = () => {
     }
   };
 
+  const handleRegister = async (values: API.LoginParams) => {
+    const form = values;
+    form.email = values.username;
+    const res = await register(values);
+    if (res.code === 200) {
+      message.success('注册成功');
+      setType('account');
+    }
+  };
+
   const { status, type: loginType } = userLoginState;
   return (
     <div className={styles.container}>
@@ -68,12 +77,21 @@ const Login: React.FC = () => {
             autoLogin: true,
           }}
           onFinish={async (values) => {
-            await handleSubmit(values as API.LoginParams);
+            if (type === 'account') {
+              await handleSubmit(values as API.LoginParams);
+            } else {
+              await handleRegister(values);
+            }
+          }}
+          submitter={{
+            searchConfig: {
+              submitText: type === 'account' ? '登录' : '注册',
+            },
           }}
         >
           <Tabs activeKey={type} onChange={setType}>
-            <Tabs.TabPane key="account" tab={'账户密码登录'} />
-            <Tabs.TabPane key="mobile" tab={'手机号登录'} />
+            <Tabs.TabPane key="account" tab={'登录'} />
+            <Tabs.TabPane key="mobile" tab={'注册'} />
           </Tabs>
 
           {status === 'error' && loginType === 'account' && (
@@ -120,53 +138,16 @@ const Login: React.FC = () => {
                   size: 'large',
                   // prefix: <MobileOutlined className={styles.prefixIcon} />,
                 }}
-                name="mobile"
-                placeholder={'请输入手机号！'}
-                rules={[
-                  {
-                    required: true,
-                    message: '手机号是必填项！',
-                  },
-                  {
-                    pattern: /^1\d{10}$/,
-                    message: '不合法的手机号！',
-                  },
-                ]}
+                name="username"
+                placeholder={'输入账号'}
               />
-              <ProFormCaptcha
+              <ProFormText
                 fieldProps={{
                   size: 'large',
                   // prefix: <LockOutlined className={styles.prefixIcon} />,
                 }}
-                captchaProps={{
-                  size: 'large',
-                }}
-                placeholder={'请输入验证码！'}
-                captchaTextRender={(timing, count) => {
-                  if (timing) {
-                    return `${count} ${'秒后重新获取'}`;
-                  }
-
-                  return '获取验证码';
-                }}
-                name="captcha"
-                rules={[
-                  {
-                    required: true,
-                    message: '验证码是必填项！',
-                  },
-                ]}
-                onGetCaptcha={async (phone) => {
-                  const result = await getFakeCaptcha({
-                    phone,
-                  });
-
-                  if (result === false) {
-                    return;
-                  }
-
-                  message.success('获取验证码成功！验证码为：1234');
-                }}
+                placeholder={'输入密码'}
+                name="password"
               />
             </>
           )}
@@ -175,16 +156,16 @@ const Login: React.FC = () => {
               marginBottom: 24,
             }}
           >
-            <ProFormCheckbox noStyle name="autoLogin">
+            {/* <ProFormCheckbox noStyle name="autoLogin">
               自动登录
             </ProFormCheckbox>
             <a
               style={{
-                float: 'right',
+                // float: 'right',
               }}
             >
               忘记密码 ?
-            </a>
+            </a> */}
           </div>
         </LoginForm>
       </div>

@@ -80,6 +80,7 @@ declare namespace API {
     password?: string;
     autoLogin?: boolean;
     type?: string;
+    email?: string;
   };
 
   type ErrorResponse = {

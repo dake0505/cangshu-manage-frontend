@@ -16,6 +16,16 @@ export async function login(body: API.LoginParams, options?: Record<string, any>
     ...(options || {}),
   });
 }
+export async function register(body: API.LoginParams, options?: Record<string, any>) {
+  return request('/api/user', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
 /**
  * 查询用户信息
  * @returns
