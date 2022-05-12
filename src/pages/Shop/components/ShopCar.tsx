@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector, connect } from 'umi';
-import { Button } from 'antd';
+import { useSelector, connect, useDispatch } from 'umi';
+import { Button, Modal } from 'antd';
 import { ShoppingCartOutlined, CloseOutlined } from '@ant-design/icons';
 
 interface ShopcarProps {
@@ -10,15 +10,25 @@ interface ShopcarProps {
 
 const ShopCar: React.FC = (props: ShopcarProps) => {
   console.log(props);
+  const dispatch = useDispatch();
   const shopcarModel = useSelector((state: any) => state.shopcar);
   const list = shopcarModel.commodityList;
   const [listVisible, setListVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
   const goodsList = props.commodityList;
   let totalPrice: number = 0;
   goodsList?.map((item: any) => {
     totalPrice += item.commodityPrice * item.count;
   });
-  const onPay = () => {};
+  const onClear = () => {
+    dispatch({
+      type: 'shopcar/updateCommoditylist',
+      payload: [],
+    });
+  };
+  const onPay = () => {
+    setModalVisible(true);
+  };
   useEffect(() => {
     console.log(list);
   }, [list]);
@@ -27,7 +37,10 @@ const ShopCar: React.FC = (props: ShopcarProps) => {
       {listVisible ? (
         <div className="car-goods">
           <p className="title">
-            商品列表 <Button type="link">清空</Button>
+            商品列表{' '}
+            <Button type="link" onClick={onClear}>
+              清空
+            </Button>
           </p>
           <div className="goods-list">
             {goodsList
@@ -50,6 +63,16 @@ const ShopCar: React.FC = (props: ShopcarProps) => {
         </div>
       ) : null}
       <ShoppingCartOutlined className="car-icon" onClick={() => setListVisible(!listVisible)} />
+
+      <Modal
+        title="订单详情"
+        width={1000}
+        visible={modalVisible}
+        footer={null}
+        onCancel={() => setModalVisible(false)}
+      >
+        123
+      </Modal>
     </div>
   );
 };

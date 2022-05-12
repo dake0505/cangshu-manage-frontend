@@ -28,4 +28,11 @@ declare namespace CommodityApi {
 
 declare namespace UserApi {
   type signInParams = {};
+  type queryParams = {
+    pageNumber: number;
+    pageSize: number;
+  };
+  type deleteParams = {
+    email: string;
+  };
 }

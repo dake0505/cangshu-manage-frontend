@@ -63,3 +63,21 @@ export async function querySignInList(params?: UserApi.signInParams) {
     params,
   });
 }
+/**
+ * 查询用户列表
+ * @param params
+ * @returns
+ */
+export async function queryUserList(params?: UserApi.queryParams) {
+  return request('/api/user-list', {
+    method: 'GET',
+    params,
+  });
+}
+
+export async function deleteUser(params?: UserApi.deleteParams) {
+  return request('/api/user', {
+    method: 'DELETE',
+    params,
+  });
+}
