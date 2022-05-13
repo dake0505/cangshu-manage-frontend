@@ -19,10 +19,11 @@ declare namespace CommodityApi {
     commodityName?: string;
     commodityDisplayName?: string;
     commodityDesc?: string;
-    commodityPrice?: number;
+    commodityPrice?: number | 0;
     commodityCount?: number;
     commoditySale?: number;
     isValid?: boolean;
+    count?: number | 0;
   };
 }
 
@@ -34,5 +35,17 @@ declare namespace UserApi {
   };
   type deleteParams = {
     email: string;
+  };
+}
+
+declare namespace OrderApi {
+  type queryParams = {
+    pageNumber: number;
+    pageSize: number;
+  };
+  type orderItem = {
+    status?: number;
+    totalPrice?: number;
+    goods?: CommodityApi.CommodityItem[];
   };
 }

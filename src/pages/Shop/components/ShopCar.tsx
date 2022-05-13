@@ -1,21 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector, connect, useDispatch } from 'umi';
-import { Button, Modal } from 'antd';
-import { ShoppingCartOutlined, CloseOutlined } from '@ant-design/icons';
+import { useSelector, connect, useDispatch, useModel } from 'umi';
+import { Button, Modal, List, Select } from 'antd';
+import { ShoppingCartOutlined } from '@ant-design/icons';
 
 interface ShopcarProps {
   commodityList?: [];
   children?: React.ReactNode;
 }
 
+const { Option } = Select;
+
 const ShopCar: React.FC = (props: ShopcarProps) => {
-  console.log(props);
   const dispatch = useDispatch();
+  const { initialState } = useModel('@@initialState');
+  const addressList = initialState?.currentUser?.address || [];
   const shopcarModel = useSelector((state: any) => state.shopcar);
   const list = shopcarModel.commodityList;
   const [listVisible, setListVisible] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
-  const goodsList = props.commodityList;
+  const goodsList: CommodityApi.CommodityItem[] = props.commodityList || [];
   let totalPrice: number = 0;
   goodsList?.map((item: any) => {
     totalPrice += item.commodityPrice * item.count;
@@ -28,6 +31,13 @@ const ShopCar: React.FC = (props: ShopcarProps) => {
   };
   const onPay = () => {
     setModalVisible(true);
+  };
+  const onDelete = (item: CommodityApi.CommodityItem) => {
+    const index = goodsList.findIndex((subItem) => subItem._id === item._id);
+    dispatch({
+      type: 'shopcar/updateCommoditylist',
+      payload: goodsList.splice(index, 1),
+    });
   };
   useEffect(() => {
     console.log(list);
@@ -43,18 +53,23 @@ const ShopCar: React.FC = (props: ShopcarProps) => {
             </Button>
           </p>
           <div className="goods-list">
-            {goodsList
-              ? goodsList.map((item: any) => (
-                  <div className="goods-item" key={item.commodityDisplayName}>
-                    <span>{item.commodityDisplayName}</span>
-                    <span>{item.commodityPrice}</span>
-                    <span>
-                      <CloseOutlined />
-                    </span>
-                    <span>{item.count}</span>
-                  </div>
-                ))
-              : null}
+            <List
+              itemLayout="horizontal"
+              dataSource={goodsList}
+              renderItem={(item) => (
+                <List.Item
+                  actions={[
+                    <a key="list-loadmore-edit" onClick={() => onDelete(item)}>
+                      删除
+                    </a>,
+                  ]}
+                >
+                  <List.Item.Meta title={<a>{item.commodityDisplayName}</a>} />
+                  <span>{item.commodityPrice}元 *</span>
+                  <span>{item.count}</span>
+                </List.Item>
+              )}
+            />
           </div>
           <div className="bottom-btn">
             <span>总计 {totalPrice}</span>
@@ -71,7 +86,31 @@ const ShopCar: React.FC = (props: ShopcarProps) => {
         footer={null}
         onCancel={() => setModalVisible(false)}
       >
-        123
+        <Select size="large" style={{ width: 400 }}>
+          {addressList.map((item) => (
+            <Option key={item.address}>{item.address}</Option>
+          ))}
+        </Select>
+        <List
+          itemLayout="horizontal"
+          dataSource={goodsList}
+          renderItem={(item) => (
+            <List.Item
+            // actions={[
+            //   <a key="list-loadmore-edit" onClick={() => onDelete(item)}>
+            //     删除
+            //   </a>,
+            // ]}
+            >
+              <List.Item.Meta title={<a>{item.commodityDisplayName}</a>} />
+              <span>{item.commodityPrice}元 *</span>
+              <span>{item.count}</span>
+            </List.Item>
+          )}
+        />
+        <div>
+          <Button>下单</Button>
+        </div>
       </Modal>
     </div>
   );

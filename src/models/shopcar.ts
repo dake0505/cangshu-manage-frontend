@@ -7,6 +7,7 @@ export interface Commodity {
   commodityCount: number;
   commodityPrice: number;
   commodityId: string;
+  count: number;
 }
 
 export interface ShopcarModelState {

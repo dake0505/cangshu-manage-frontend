@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { useDispatch, useSelector } from 'umi';
-import { Card, Pagination, Modal, Button, InputNumber } from 'antd';
+import { Card, Pagination, Modal, Button, InputNumber, message } from 'antd';
 import { TagOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import { queryList } from '@/services/shop';
 import './shop.less';
@@ -34,16 +34,23 @@ const Shop: React.FC = () => {
     setQueryParams({ pageNumber: page, pageSize: 10 });
   };
   const onAddShopCar = () => {
-    console.log(detailInfo, commodityNumber, shopcarModel);
-    const modellist = shopcarModel.commodityList;
-    modellist.push({
-      ...detailInfo,
-      count: commodityNumber,
-    });
+    const defaultList: CommodityApi.CommodityItem[] = shopcarModel.commodityList;
+    const index = defaultList.findIndex((item) => item._id === detailInfo._id);
+    if (index !== -1) {
+      // defaultList[index].count += commodityNumber;
+    } else {
+      defaultList.push({
+        ...detailInfo,
+        count: commodityNumber,
+      });
+    }
     dispatch({
       type: 'shopcar/updateCommoditylist',
-      payload: modellist,
+      payload: defaultList,
     });
+    message.success('添加成功');
+    setCommodityNumber(0);
+    setIsModalVisible(false);
   };
   useEffect(() => {
     onQueryList();
