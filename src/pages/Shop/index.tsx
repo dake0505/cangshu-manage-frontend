@@ -37,7 +37,8 @@ const Shop: React.FC = () => {
     const defaultList: CommodityApi.CommodityItem[] = shopcarModel.commodityList;
     const index = defaultList.findIndex((item) => item._id === detailInfo._id);
     if (index !== -1) {
-      // defaultList[index].count += commodityNumber;
+      // @ts-ignore
+      defaultList[index].count += commodityNumber;
     } else {
       defaultList.push({
         ...detailInfo,

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, connect, useDispatch, useModel } from 'umi';
-import { Button, Modal, List, Select } from 'antd';
+import { Button, Modal, List, Select, Divider, message } from 'antd';
 import { ShoppingCartOutlined } from '@ant-design/icons';
-
+import { createOrder } from '@/services/order';
 interface ShopcarProps {
   commodityList?: [];
   children?: React.ReactNode;
@@ -31,6 +31,22 @@ const ShopCar: React.FC = (props: ShopcarProps) => {
   };
   const onPay = () => {
     setModalVisible(true);
+    setListVisible(false);
+  };
+  const onOrder = async () => {
+    const form = {
+      goods: goodsList,
+      status: 0,
+      totalPrice: totalPrice,
+    };
+    const res = await createOrder(form);
+    console.log(res);
+    if (res.code === 200) {
+      message.success('下单成功');
+      setModalVisible(false);
+      setListVisible(false);
+      onClear();
+    }
   };
   const onDelete = (item: CommodityApi.CommodityItem) => {
     const index = goodsList.findIndex((subItem) => subItem._id === item._id);
@@ -86,14 +102,21 @@ const ShopCar: React.FC = (props: ShopcarProps) => {
         footer={null}
         onCancel={() => setModalVisible(false)}
       >
-        <Select size="large" style={{ width: 400 }}>
+        <span>选择收货地址：</span>
+        <Select size="large" style={{ width: 600 }}>
           {addressList.map((item) => (
-            <Option key={item.address}>{item.address}</Option>
+            <Option key={item.address}>
+              <span>{item.recipient}</span>
+              <span>{item.tel}</span>
+              <span>{item.address}</span>
+            </Option>
           ))}
         </Select>
+        <Divider>商品列表</Divider>
         <List
           itemLayout="horizontal"
           dataSource={goodsList}
+          style={{ height: 400, overflow: 'auto' }}
           renderItem={(item) => (
             <List.Item
             // actions={[
@@ -108,8 +131,11 @@ const ShopCar: React.FC = (props: ShopcarProps) => {
             </List.Item>
           )}
         />
-        <div>
-          <Button>下单</Button>
+        <div className="order-footer">
+          <Button>取消</Button>
+          <Button type="primary" onClick={onOrder}>
+            下单
+          </Button>
         </div>
       </Modal>
     </div>

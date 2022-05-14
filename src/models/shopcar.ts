@@ -11,7 +11,7 @@ export interface Commodity {
 }
 
 export interface ShopcarModelState {
-  commodityList?: [Commodity?];
+  commodityList?: Commodity[];
 }
 
 export interface ShopcarModelType {
