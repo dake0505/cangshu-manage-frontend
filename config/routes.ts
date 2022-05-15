@@ -10,6 +10,7 @@ export default [
   { path: '/welcome', name: '首页', icon: 'shop', component: './Shop' },
   { path: '/commodity', name: '仓库', icon: 'home', component: './Commodity' },
   { path: '/order', name: '订单', icon: 'unordered-list', component: './Order' },
+  { path: '/analyse', name: '分析', icon: 'line-chart', component: './Analyse' },
   { path: '/userList', name: '用户', icon: 'team', component: './user/List' },
   {
     path: '/account',
