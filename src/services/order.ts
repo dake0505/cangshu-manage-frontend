@@ -15,3 +15,10 @@ export async function createOrder(data: OrderApi.orderItem, options?: Record<str
     ...(options || {}),
   });
 }
+
+export async function deleteOrder(params: OrderApi.orderItem) {
+  return request('/api/order', {
+    method: 'DELETE',
+    params: { ...params },
+  });
+}

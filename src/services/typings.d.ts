@@ -44,6 +44,7 @@ declare namespace OrderApi {
     pageSize: number;
   };
   type orderItem = {
+    _id?: string;
     status?: number;
     totalPrice?: number;
     goods?: CommodityApi.CommodityItem[];

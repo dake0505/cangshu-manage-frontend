@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
-import { Table, Space } from 'antd';
-import { queryOrderList } from '@/services/order';
+import { Table, Space, message } from 'antd';
+import { queryOrderList, deleteOrder } from '@/services/order';
 
 const Order: React.FC = () => {
   const [dataSource, setDataSource] = useState([]);
@@ -14,8 +14,13 @@ const Order: React.FC = () => {
   const onDetail = (record: OrderApi.orderItem) => {
     console.log(record);
   };
-  const onDelete = (record: OrderApi.orderItem) => {
+  const onDelete = async (record: OrderApi.orderItem) => {
     console.log(record);
+    const res = await deleteOrder({ _id: record._id });
+    if (res.code === 200) {
+      message.success('删除成功');
+      queryList();
+    }
   };
   useEffect(() => {
     queryList();
@@ -50,7 +55,7 @@ const Order: React.FC = () => {
     {
       title: ' ',
       dataIndex: 'action',
-      render: (record: any) => (
+      render: (text: any, record: any) => (
         <div>
           <Space size="middle">
             <a onClick={() => onDetail(record)}>查看</a>
